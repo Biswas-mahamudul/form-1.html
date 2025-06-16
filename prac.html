@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <form name="form">
+            <fieldset>
+                <legend>REGISTRATION FORM</legend>
+                <p>Name:</p>
+                <input type="text" name="name" class="name" />
+                <p>ID:</p>
+                <input type="text" name="id" class="id" />
+                <p>Email:</p>
+                <input type="email" name="email" class="email" />
+                <p>Subject:</p>
+                <input type="checkbox" id="php" name="subject" value="PHP" />
+                <label for="php">PHP</label>
+                <input type="checkbox" id="java" name="subject" value="JAVA" />
+                <label for="java">JAVA</label>
+                <input type="checkbox" id="python" name="subject" value="Python" />
+                <label for="python">Python</label>
+                <p>Gender:</p>
+                <input type="radio" id="male" name="gender" value="Male" />
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="Female" />
+                <label for="female">Female</label>
+                <input type="radio" id="other" name="gender" value="Other" />
+                <label for="other">Other</label>
+                <p>City:</p>
+                <select name="city" class="city">
+                    <option value="" disabled selected>Select your city</option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Chittagong">Chittagong</option>
+                    <option value="Khulna">Khulna</option>
+                    <option value="Rajshahi">Rajshahi</option>
+                </select>
+                <p>Address:</p>
+                <textarea name="addr" rows="3" cols="50"></textarea>
+                <br><br>
+                <input class="btn" type="button" value="Submit" onclick="register.submitForm()" />
+                <input class="btn" type="reset" value="Reset" />
+            </fieldset>
+        </form>
+    </div>
+
+    <script>
+        class RegistrationForm {
+            constructor(formName) {
+                this.form = document.forms[formName];
+            }
+
+            getName() {
+                return this.form["name"].value;
+            }
+
+            getId() {
+                return this.form["id"].value;
+            }
+
+            getEmail() {
+                return this.form["email"].value;
+            }
+
+            getSubjects() {
+                const subjects = document.querySelectorAll('input[name="subject"]:checked');
+                let selected = [];
+                subjects.forEach((checkbox) => {
+                    selected.push(checkbox.value);
+                });
+                return selected.join(", ") || "None";
+            }
+
+            getGender() {
+                const selected = document.querySelector('input[name="gender"]:checked');
+                return selected ? selected.value : "Not specified";
+            }
+
+            getCity() {
+                return this.form["city"].value;
+            }
+
+            getAddress() {
+                return this.form["addr"].value;
+            }
+
+            submitForm() {
+                const name = this.getName();
+                const id = this.getId();
+                const email = this.getEmail();
+                const sub = this.getSubjects();
+                const gender = this.getGender();
+                const city = this.getCity();
+                const addr = this.getAddress();
+
+                let doc = window.open("", "", "width=300,height=500");
+                doc.document.write(`
+          <h3>Registration Details</h3>
+          Name    :  ${name}<br>
+          ID      :  ${id}<br>
+          Email   :  ${email}<br>
+          Subject :  ${sub}<br>
+          Gender  :  ${gender}<br>
+          City    :  ${city}<br>
+          Address :  ${addr}<br><br>
+          <button onclick="window.close()">Close Window</button>
+        `);
+            }
+        }
+
+        const register = new RegistrationForm("form");
+    </script>
+</body>
+
+</html>
